@@ -1,48 +1,148 @@
 # Rock-paper-Scissor-Game
-This is a web base game. languages used are HTML , CSS and JavaScript
-Rock Paper Scissors Game
-This is a simple implementation of the classic Rock Paper Scissors game using JavaScript and HTML/CSS. The game consists of the following components:
+# Rock-Paper-Scissors Game README
 
-HTML Structure: Contains elements for displaying game options (rock, paper, scissor), scores for the player and computer, and a result display area.
+## Description
 
-CSS Styling: Minimal styling to make the game interface presentable.
+This project is a simple Rock-Paper-Scissors game implemented in JavaScript. The player can choose between rock, paper, and scissors by clicking on the corresponding image. The computer randomly selects its move, and the game displays the result, updating the score accordingly.
 
-JavaScript Logic: Handles game mechanics such as player clicks on game options, computer random move generation, and result evaluation.
+## Features
 
-How to Play
-Clone or Download the repository to your local machine.
+- Player can choose rock, paper, or scissors.
+- Computer randomly selects its move.
+- Displays the result of each round.
+- Keeps track of player and computer scores.
+- Uses different background colors to indicate win, loss, and draw.
 
-Open the index.html file in a web browser.
+## Files
 
-Game Rules:
+- `index.html`: Contains the structure of the web page.
+- `styles.css`: Contains the styling for the web page.
+- `script.js`: Contains the JavaScript code to handle the game logic and update the UI.
 
-Click on the image representing your choice (rock, paper, or scissor).
-The computer will randomly choose its move.
-Results are displayed in the result area:
-"Computer Won! [Reason]" if the computer wins.
-"You Won! [Reason]" if the player wins.
-"It's a Draw!" if both choose the same option.
-Scoring:
+## Getting Started
 
-Scores for the player and computer are updated accordingly.
-Player score is displayed under "Your Score".
-Computer score is displayed under "Computer Score".
-Code Explanation
-Variables:
+### Prerequisites
 
-scissorPic, rockPic, paperPic: Variables holding references to the HTML elements representing game options.
-playerScore, computerScore: Variables holding references to the HTML elements displaying scores.
-resultBtn: Variable holding reference to the HTML element where game results are displayed.
-computerCount, playerCount: Variables tracking scores for the computer and player.
-Functions:
+To run this project, you'll need:
 
-computerMoveFunc: Generates a random move for the computer (rock, paper, or scissor).
-Event Listeners:
+- A modern web browser
 
-Each game option (scissorPic, rockPic, paperPic) has an event listener that triggers when clicked.
-Depending on the player's choice and the computer's move, the result is displayed and scores are updated accordingly.
-Further Customization
-You can modify the CSS to change the look and feel of the game.
-Add more game options or features to enhance the game.
-Implement additional logic for handling edge cases or special scenarios.
-Enjoy playing Rock Paper Scissors!
+### Installation
+
+1. Clone the repository to your local machine.
+2. Open the `index.html` file in your web browser.
+
+### Usage
+
+1. Open the web page in your browser.
+2. Click on the rock, paper, or scissors image to make your move.
+3. The computer will randomly select its move.
+4. The result of the round will be displayed, and the scores will be updated accordingly.
+
+### JavaScript Code Explanation
+
+#### Elements Selection
+
+The script selects various elements from the DOM for manipulation.
+
+```javascript
+let scissorPic = document.querySelector(".scissor-pic");
+let rockPic = document.querySelector(".rock-pic");
+let paperPic = document.querySelector(".paper-pic");
+let playerScore = document.querySelector(".player-score");
+let computerScore = document.querySelector(".computer-score");
+let resultBtn = document.querySelector(".display-result");
+
+let computerCount = 0;
+let playerCount = 0;
+```
+
+#### Computer Move
+
+The script defines a function to randomly select the computer's move.
+
+```javascript
+let computerMoveFunc = () => {
+    let num = Math.ceil(Math.random() * 3);
+    if (num === 1) {
+        return "rock";
+    } else if (num === 2) {
+        return "paper";
+    } else {
+        return "scissor";
+    }
+};
+```
+
+#### Player Click Scissor
+
+The script handles the scenario when the player clicks on the scissor image.
+
+```javascript
+scissorPic.addEventListener("click", () => {
+    let computerMove = computerMoveFunc();
+    if (computerMove === "rock") { // lose condition
+        resultBtn.style.backgroundColor = "#F52549";
+        resultBtn.innerText = "computer Won! Rock breaks scissor";
+        computerCount += 1;
+        computerScore.innerText = computerCount;
+    } else if (computerMove === "paper") { // Player Won
+        resultBtn.style.backgroundColor = "#2C5F2D";
+        resultBtn.innerText = "You Won! Scissor cuts paper";
+        playerCount += 1;
+        playerScore.innerText = playerCount;
+    } else { // draw condition
+        resultBtn.style.backgroundColor = "#8AAAE5";
+        resultBtn.innerText = "Its a Draw";
+    }
+});
+```
+
+#### Player Click Rock
+
+The script handles the scenario when the player clicks on the rock image.
+
+```javascript
+rockPic.addEventListener("click", () => {
+    let computerMove = computerMoveFunc();
+    if (computerMove === "paper") { // lose condition
+        resultBtn.style.backgroundColor = "#F52549";
+        resultBtn.innerText = "Computer Won! Paper flew Rock";
+        computerCount += 1;
+        computerScore.innerText = computerCount;
+    } else if (computerMove === "scissor") { // Player Won
+        resultBtn.style.backgroundColor = "#2C5F2D";
+        resultBtn.innerText = "You Won! rock Break Scissor";
+        playerCount += 1;
+        playerScore.innerText = playerCount;
+    } else { // draw condition
+        resultBtn.style.backgroundColor = "#8AAAE5";
+        resultBtn.innerText = "Its a Draw!";
+    }
+});
+```
+
+#### Player Click Paper
+
+The script handles the scenario when the player clicks on the paper image.
+
+```javascript
+paperPic.addEventListener("click", () => {
+    let computerMove = computerMoveFunc();
+    if (computerMove === "scissor") { // lose condition
+        resultBtn.style.backgroundColor = "#F52549";
+        resultBtn.innerText = "Computer Won! scissor cuts Paper";
+        computerCount += 1;
+        computerScore.innerText = computerCount;
+    } else if (computerMove === "rock") { // Player Won
+        resultBtn.style.backgroundColor = "#2C5F2D";
+        resultBtn.innerText = "You Won! Paper flew rock";
+        playerCount += 1;
+        playerScore.innerText = playerCount;
+    } else { // draw condition
+        resultBtn.style.backgroundColor = "#8AAAE5";
+        resultBtn.innerText = "Its a Draw!";
+    }
+});
+```
+
